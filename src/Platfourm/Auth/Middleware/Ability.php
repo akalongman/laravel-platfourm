@@ -38,10 +38,10 @@ class Ability
     public function handle($request, Closure $next, $roles, $permissions, $validateAll = false)
     {
         if ($this->authService->guest() || !$request->user()->ability(
-                explode('|', $roles),
-                explode('|', $permissions),
-                array('validate_all' => $validateAll)
-            )
+            explode('|', $roles),
+            explode('|', $permissions),
+            array('validate_all' => $validateAll)
+        )
         ) {
             if ($request->wantsJson()) {
                 return response('Forbidden.', 403);
