@@ -1,0 +1,45 @@
+{
+    "name": "longman/laravel-platfourm",
+    "type": "library",
+    "description": "Package to implement right Repository/Service architecture in Laravel 5.x",
+    "keywords": ["laravel", "package", "repository", "service", "ddd", "domain"],
+    "license": "MIT",
+    "homepage": "https://github.com/akalongman/laravel-platfourm",
+    "support": {
+        "issues": "https://github.com/akalongman/laravel-platfourm/issues",
+        "source": "https://github.com/akalongman/laravel-platfourm"
+    },
+    "authors": [
+        {
+            "name": "Avtandil Kikabidze aka LONGMAN",
+            "email": "akalongman@gmail.com",
+            "homepage": "http://longman.me",
+            "role": "Maintainer, Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "laravel/framework": "5.1.*|5.2.*",
+        "longman/laravel-multilang": "~1.0.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "0.9.*",
+        "phpunit/phpunit": "~4.8",
+        "phpspec/phpspec": "~2.5",
+        "squizlabs/php_codesniffer": "2.6.*",
+        "graham-campbell/testbench": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Longman\\Platfourm\\": "src/Platfourm"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}

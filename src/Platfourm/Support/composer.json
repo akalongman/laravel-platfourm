@@ -1,0 +1,23 @@
+{
+    "name": "platfourm/auth",
+    "description": "The Platfourm Auth package.",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Avtandil Kikabidze",
+            "email": "akalongman@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "platfourm/foundation": "5.2.*",
+        "platfourm/contracts": "5.2.*",
+        "platfourm/user": "5.2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Longman\Platfourm\\Auth\\": ""
+        }
+    },
+    "minimum-stability": "dev"
+}
