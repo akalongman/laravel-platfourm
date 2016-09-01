@@ -2,6 +2,7 @@
 
 namespace Longman\Platfourm\User\Repositories\Eloquent;
 
+use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Longman\Platfourm\Contracts\Auth\AuthUserService;
@@ -28,11 +29,12 @@ class UserRepository extends BaseRepository implements Repository, RepositoryCri
     }
 
     /**
-     * Attach role to user.
+     * Update avatar from gravatar
      *
-     * @param type $roleName
-     *
-     * @return type
+     * @param \GuzzleHttp\Client                                $httpClient
+     * @param \Illuminate\Contracts\Cache\Repository            $cache
+     * @param \Longman\Platfourm\Contracts\Auth\AuthUserService $authUserService
+     * @return bool
      */
     public function updateAvatar(Client $httpClient, Cache $cache, AuthUserService $authUserService)
     {
