@@ -98,7 +98,7 @@ if (!function_exists('p')) {
     }
 }
 
-if (!function_exists('response_subarray')) {
+if (!function_exists('array_to_subarray')) {
     /**
      * Generate a url for the application.
      *
