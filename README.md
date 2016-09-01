@@ -1,6 +1,6 @@
 # Laravel Platfourm
 
-[![Build Status](https://img.shields.io/travis/akalongman/laravel-platfourm/master.svg?style=flat-square)](https://travis-ci.org/akalongman/laravel-platfourm)
+[![Build Status](https://img.shields.io/travis/akalongman/laravel-platfourm.svg?style=flat-square)](https://travis-ci.org/akalongman/laravel-platfourm)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/akalongman/laravel-platfourm.svg?style=flat-square)](https://scrutinizer-ci.com/g/akalongman/laravel-platfourm/?branch=master)
 [![Code Quality](https://img.shields.io/scrutinizer/g/akalongman/laravel-platfourm.svg?style=flat-square)](https://scrutinizer-ci.com/g/akalongman/laravel-platfourm/?branch=master)
 [![Latest Stable Version](https://img.shields.io/github/release/akalongman/laravel-platfourm.svg?style=flat-square)](https://github.com/akalongman/laravel-platfourm/releases)
