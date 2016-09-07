@@ -1,4 +1,12 @@
 <?php
+/*
+ * This file is part of the Laravel Platfourm package.
+ *
+ * (c) Avtandil Kikabidze aka LONGMAN <akalongman@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Longman\Platfourm\Foundation;
 
@@ -9,7 +17,6 @@ class Application extends LaravelApplication
 
     public function getAvailableLocales()
     {
-        //$locale = $this->getLocale();
         $locales = $this['multilang']->getLocales();
 
         return array_keys($locales);
