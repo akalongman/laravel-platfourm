@@ -112,6 +112,9 @@ class AuthUserService implements AuthUserServiceContract
         return App::runningInConsole();
     }
 
+    /**
+     * @return \Longman\Platfourm\User\Models\Eloquent\User
+     */
     public function getUser()
     {
         if (empty($this->user)) {
@@ -120,6 +123,9 @@ class AuthUserService implements AuthUserServiceContract
         return $this->user;
     }
 
+    /**
+     * @return \Longman\Platfourm\User\Models\Eloquent\User
+     */
     public function user()
     {
         if (empty($this->user)) {
@@ -143,6 +149,10 @@ class AuthUserService implements AuthUserServiceContract
         return !$this->check();
     }
 
+    /**
+     * @return mixed
+     * @throws \Longman\Platfourm\Auth\Exceptions\UnauthorizedException
+     */
     public function guard()
     {
         if (empty($this->auth->guard($this->guard))) {

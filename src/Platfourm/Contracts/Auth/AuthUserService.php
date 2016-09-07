@@ -13,8 +13,25 @@ namespace Longman\Platfourm\Contracts\Auth;
 interface AuthUserService
 {
 
+    /**
+     * @return \Longman\Platfourm\User\Models\Eloquent\User
+     */
     public function getUser();
 
+    /**
+     * @return \Longman\Platfourm\User\Models\Eloquent\User
+     */
+    public function user();
+
+    /**
+     * @return mixed
+     * @throws \Longman\Platfourm\Auth\Exceptions\UnauthorizedException
+     */
+    public function guard();
+
+    /**
+     * @return bool
+     */
     public function check();
 
     public function hasRole($role);
@@ -23,6 +40,10 @@ interface AuthUserService
 
     public function isConsole();
 
+    /**
+     * @param $perm
+     * @throws \Longman\Platfourm\Auth\Exceptions\ForbiddenException
+     */
     public function should($perm);
 
 }
