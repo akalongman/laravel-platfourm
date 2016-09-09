@@ -36,8 +36,10 @@ class CompileCommand extends Command
     public function handle()
     {
         $this->call('clear-compiled');
-        $this->call('optimize', ['--force' => true]);
-        $this->call('config:cache');
-        $this->call('route:cache');
+        if (!$this->laravel['config']['app.debug']) {
+            $this->call('optimize', ['--force' => true]);
+            $this->call('config:cache');
+            $this->call('route:cache');
+        }
     }
 }
