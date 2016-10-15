@@ -14,6 +14,10 @@ use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\ServiceProvider;
 use Longman\Platfourm\Foundation\Console\ClearCommand;
 use Longman\Platfourm\Foundation\Console\CompileCommand;
+use Longman\Platfourm\Foundation\Console\DbClear;
+use Longman\Platfourm\Foundation\Console\DbDump;
+use Longman\Platfourm\Foundation\Console\DbRestore;
+use Longman\Platfourm\Foundation\Console\LogClear;
 use Longman\Platfourm\Foundation\Events\ApplicationScopeMatched;
 
 class FoundationServiceProvider extends ServiceProvider
@@ -32,8 +36,12 @@ class FoundationServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
-        'Clear'   => 'command.clear',
-        'Compile' => 'command.compile',
+        'command.clear'      => ClearCommand::class,
+        'command.compile'    => CompileCommand::class,
+        'command.db.clear'   => DbClear::class,
+        'command.db.dump'    => DbDump::class,
+        'command.db.restore' => DbRestore::class,
+        'command.log.clear'  => LogClear::class,
     ];
 
     /**
@@ -91,37 +99,13 @@ class FoundationServiceProvider extends ServiceProvider
      */
     protected function registerCommands(array $commands)
     {
-        foreach (array_keys($commands) as $command) {
-            $method = "register{$command}Command";
-
-            call_user_func_array([$this, $method], []);
+        foreach ($commands as $command => $class) {
+            $this->app->singleton($command, function ($app) use ($class) {
+                return new $class;
+            });
         }
 
-        $this->commands(array_values($commands));
-    }
-
-    /**
-     * Register the command.
-     *
-     * @return void
-     */
-    protected function registerClearCommand()
-    {
-        $this->app->singleton('command.clear', function ($app) {
-            return new ClearCommand();
-        });
-    }
-
-    /**
-     * Register the command.
-     *
-     * @return void
-     */
-    protected function registerCompileCommand()
-    {
-        $this->app->singleton('command.compile', function ($app) {
-            return new CompileCommand();
-        });
+        $this->commands(array_keys($commands));
     }
 
     /**
@@ -132,9 +116,9 @@ class FoundationServiceProvider extends ServiceProvider
     public function provides()
     {
         if ($this->app->environment('production')) {
-            return array_values($this->commands);
+            return array_keys($this->commands);
         } else {
-            return array_merge(array_values($this->commands), array_values($this->devCommands));
+            return array_merge(array_keys($this->commands), array_keys($this->devCommands));
         }
     }
 
