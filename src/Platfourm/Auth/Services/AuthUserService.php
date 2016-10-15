@@ -68,6 +68,11 @@ class AuthUserService implements AuthUserServiceContract
         return $this->attempt($request, $remember, $input);
     }
 
+    public function loginByModel(User $user, $remember = false)
+    {
+        return $this->auth->guard($this->guard)->login($user, $remember);
+    }
+
     public function attempt(Request $request, $remember = false, array $input = ['email', 'password'])
     {
         // validation here
