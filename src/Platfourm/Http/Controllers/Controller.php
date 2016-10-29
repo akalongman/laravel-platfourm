@@ -86,6 +86,10 @@ abstract class Controller extends BaseController
             return redirect();
         }
 
+        if ($to === '/') {
+            return redirect($to, $status, $headers, $secure);
+        }
+
         $toMask = [];
         if ($this->scopeNamespace && $this->scopeNamespace !== 'site') {
             $toMask[] = $this->scopeNamespace;
