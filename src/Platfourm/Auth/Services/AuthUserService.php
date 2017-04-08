@@ -31,18 +31,15 @@ class AuthUserService implements AuthUserServiceContract
     private $guard = null;
 
     private $repository;
-    private $session;
     private $auth;
     private $config;
 
     public function __construct(
         UserRepository $repository,
-        SessionContract $session,
         AuthContract $auth,
         ConfigContract $config
     ) {
         $this->repository = $repository;
-        $this->session    = $session;
         $this->auth       = $auth;
         $this->config     = $config;
         $this->setUser();
@@ -59,7 +56,7 @@ class AuthUserService implements AuthUserServiceContract
     {
         $this->user = $this->auth->guard($this->guard)->user();
         if ($this->user && property_exists($this->user, 'loginasData')) {
-            $this->user->setLoginAsData($this->session->get('loginas.user.data'));
+            $this->user->setLoginAsData($this->getSession()->get('loginas.user.data'));
         }
     }
 
@@ -102,7 +99,7 @@ class AuthUserService implements AuthUserServiceContract
 
     public function logout()
     {
-        $this->session->remove('loginas.user');
+        $this->getSession()->remove('loginas.user');
 
         $this->auth->guard($this->guard)->logout();
     }
@@ -189,7 +186,7 @@ class AuthUserService implements AuthUserServiceContract
             return false;
         }
 
-        if ($this->session->has('loginas.user')) {
+        if ($this->getSession()->has('loginas.user')) {
             return false;
         }
 
@@ -210,7 +207,7 @@ class AuthUserService implements AuthUserServiceContract
             return false;
         }
 
-        if ($this->session->has('loginas.user')) {
+        if ($this->getSession()->has('loginas.user')) {
             return false;
         }
 
@@ -227,7 +224,7 @@ class AuthUserService implements AuthUserServiceContract
             return false;
         }
 
-        if ($this->session->has('loginas.user')) {
+        if ($this->getSession()->has('loginas.user')) {
             return false;
         }
 
@@ -241,11 +238,11 @@ class AuthUserService implements AuthUserServiceContract
             throw new ForbiddenException('Do not have permission to login as user: ' . $id);
         }
 
-        $this->session->put('loginas.user.id', $this->user()->id);
-        $this->session->put('loginas.user.name', $this->user()->getFullname());
-        $this->session->put('loginas.user.data', $this->user()->toArray());
+        $this->getSession()->put('loginas.user.id', $this->user()->id);
+        $this->getSession()->put('loginas.user.name', $this->user()->getFullname());
+        $this->getSession()->put('loginas.user.data', $this->user()->toArray());
 
-        $user->setLoginAsData($this->session->get('loginas.user.data'));
+        $user->setLoginAsData($this->getSession()->get('loginas.user.data'));
 
         $this->auth->login($user);
 
@@ -257,7 +254,7 @@ class AuthUserService implements AuthUserServiceContract
     public function logoutAs()
     {
 
-        $id = $this->session->get('loginas.user.id');
+        $id = $this->getSession()->get('loginas.user.id');
 
         if (!$id) {
             throw new \RuntimeException('You are not switched to other user!');
@@ -265,12 +262,17 @@ class AuthUserService implements AuthUserServiceContract
 
         $user = $this->repository->find($id);
 
-        $this->session->forget('loginas.user');
+        $this->getSession()->forget('loginas.user');
 
         $this->auth->login($user);
 
         $this->user = $user;
         return $user;
+    }
+
+    protected function getSession()
+    {
+        return app(SessionContract::class);
     }
 
     public function __get($key)
