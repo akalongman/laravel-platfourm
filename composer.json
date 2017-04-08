@@ -20,7 +20,7 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.3.*|5.4.*",
-        "longman/laravel-multilang": "~1.0.0"
+        "longman/laravel-multilang": "~1.1.0"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",
