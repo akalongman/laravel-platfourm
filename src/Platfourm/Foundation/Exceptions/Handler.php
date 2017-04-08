@@ -33,23 +33,6 @@ class Handler extends ExceptionHandler
         ValidationException::class,
     ];
 
-    /**
-     * Report or log an exception.
-     *
-     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
-     *
-     * @param  \Exception $e
-     * @return void
-     */
-    public function report(Exception $e)
-    {
-        if ($this->shouldReport($e)) {
-            $this->log->error($e);
-
-            //$this->sendToSlack($e);
-        }
-    }
-
     public function sendToSlack(Exception $e)
     {
         if (!App::environment('production')) {
